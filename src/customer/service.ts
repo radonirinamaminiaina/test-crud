@@ -76,13 +76,11 @@ export class CustomerService {
           name,
           email,
           phone,
-          address: {
-            connect: { id: addressId },
-          },
         },
       });
       res.status(201).json(result);
     } catch (e) {
+      console.log(e);
       res.status(500).send({ message: "An error occured" });
     }
   }

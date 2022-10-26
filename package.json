@@ -5,7 +5,9 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "watch": "nodemon src/index.ts",
+    "build": "tsc -p .",
     "format": "prisma format",
+    "production": "node dist/index.js",
     "migrate": "prisma migrate dev --name test_DB"
   },
   "dependencies": {

@@ -39,9 +39,15 @@ npm run watch
 ## Start Server for production
 
 ```sh
-yarn start
+yarn build
 # or
-npm start
+npm run build
+
+# and then
+
+yarn production
+# or
+npm run production
 ```
 
 ## Endpoint

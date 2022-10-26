@@ -15,7 +15,7 @@
 
 ## Env variable
 
-```
+```sh
 # see .env.sample
 DATABASE_URL=mysql://username:password@localhost:3306/DATABASE_NAME
 ```

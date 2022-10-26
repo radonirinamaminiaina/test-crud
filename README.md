@@ -52,6 +52,8 @@ npm run production
 
 ## Endpoint
 
+You can import `postman/Test_CRUD.postman_collection.json` into your postman client
+
 ### Customer
 
 List all customers

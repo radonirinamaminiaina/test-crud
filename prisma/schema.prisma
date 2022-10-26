@@ -13,7 +13,7 @@ model Customer {
   name    String
   email   String
   phone   String
-  Address Address[]
+  address Address[]
 }
 
 model Address {

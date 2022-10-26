@@ -74,3 +74,55 @@ Delete customer
 endpoint: /api/customer/:id
 method: DELETE
 ```
+
+### Address
+
+List all address
+
+```
+endpoint: /api/address
+method: GET
+```
+
+List address by id
+
+```
+endpoint: /api/address/:id
+method: GET
+```
+
+Create address
+
+```
+endpoint: /api/address
+method: POST
+payload:
+{
+  zip: Number;
+  city: String;
+  province: String;
+  house: String;
+  customerId: Number
+}
+```
+
+Update address
+
+```
+endpoint: /api/address/:id
+method: PUT
+payload:
+{
+  zip: Number;
+  city: String;
+  province: String;
+  house: String;
+}
+```
+
+Delete address
+
+```
+endpoint: /api/address/:id
+method: DELETE
+```

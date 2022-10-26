@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
-export class CustomerService {
+export class AddressService {
   private prisma: PrismaClient;
   constructor() {
     this.prisma = new PrismaClient();
@@ -15,9 +15,9 @@ export class CustomerService {
 
   async findAll(_: Request, res: Response) {
     try {
-      const result = await this.prisma.customer.findMany({
+      const result = await this.prisma.address.findMany({
         include: {
-          address: true,
+          customer: true,
         },
       });
       res.json(result);
@@ -35,14 +35,14 @@ export class CustomerService {
   async findById(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const result = await this.prisma.customer.findUnique({
+      const result = await this.prisma.address.findUnique({
         where: { id: Number(id) },
         include: {
-          address: true,
+          customer: true,
         },
       });
       if (!result) {
-        res.status(404).send({ message: `Customer with id ${id} not found` });
+        res.status(404).send({ message: `Address with id ${id} not found` });
         return;
       }
       res.json(result);
@@ -57,32 +57,28 @@ export class CustomerService {
    * Create customer
    */
   async create(req: Request, res: Response) {
-    const { name, email, phone, addressId } = req.body;
+    const { zip, city, province, house, customerId } = req.body;
 
-    // validate emil @see https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      res.status(400).send({ message: "Email address invalid" });
-      return;
-    }
-
-    if (phone.length < 10) {
-      res.status(400).send({ message: "Phone should be at least 10" });
+    if (typeof zip !== "number") {
+      res.status(400).send({ message: "Please provide valid zip" });
       return;
     }
 
     try {
-      const result = await this.prisma.customer.create({
+      const result = await this.prisma.address.create({
         data: {
-          name,
-          email,
-          phone,
-          address: {
-            connect: { id: addressId },
+          zip,
+          city,
+          province,
+          house,
+          customer: {
+            connect: { id: customerId },
           },
         },
       });
       res.status(201).json(result);
     } catch (e) {
+      console.log(e);
       res.status(500).send({ message: "An error occured" });
     }
   }
@@ -95,7 +91,7 @@ export class CustomerService {
   async update(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const result = await this.prisma.customer.update({
+      const result = await this.prisma.address.update({
         where: { id: Number(id) },
         data: {
           ...req.body,
@@ -103,7 +99,8 @@ export class CustomerService {
       });
       res.json(result);
     } catch (e) {
-      res.status(404).send({ message: `Customer with id ${id} not found` });
+      console.log(e);
+      res.status(404).send({ message: `Address with id ${id} not found` });
     }
   }
 
@@ -115,13 +112,13 @@ export class CustomerService {
   async delete(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const result = await this.prisma.customer.delete({
+      const result = await this.prisma.address.delete({
         where: { id: Number(id) },
       });
       res.status(202).json(result);
     } catch (e) {
       console.log(e);
-      res.status(404).send({ message: `Customer with id ${id} not found` });
+      res.status(404).send({ message: `Address with id ${id} not found` });
     }
   }
 }

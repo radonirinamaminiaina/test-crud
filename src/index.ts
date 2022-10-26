@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import address from "./address";
 import customer from "./customer";
 
 const prisma = new PrismaClient();
@@ -9,8 +10,11 @@ const router = express.Router();
 
 app.use(express.json());
 
+// run our routers
 customer(router);
+address(router);
 
+// prefix router with api
 app.use("/api", router);
 
 const server = app.listen(3000, () =>

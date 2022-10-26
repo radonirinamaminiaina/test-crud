@@ -1,5 +1,18 @@
 # Test CURD with Express
 
+## Requirements
+
+- Node
+- MySQL
+- Npm
+
+## Used stack
+
+- Typescript
+- Express
+- Prisma
+- MySQL
+
 ## Installation
 
 ```sh
